@@ -1,0 +1,98 @@
+openapi: 3.0.0
+info:
+  title: Laravel API
+  description: Senior PHP Developer Laravel Task
+  version: 1.0.0
+paths:
+  /monitors:
+    post:
+      summary: Add urls to monitor
+      parameters:
+        - in: query
+          name: stats
+          schema:
+            type: boolean
+          required: false
+          allowEmptyValue: true
+          description: return optional stats in header.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: string
+      responses:
+        200:
+          description: Successful response
+          headers:
+            X-Stats:
+              $ref: '#/components/headers/X-Stats'
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SuccessResponse"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /monitors/{url}:
+    get:
+      summary: return monitored data for last 10 minutes
+      parameters:
+        - in: path
+          name: url
+          schema:
+            type: string
+          required: true
+          description: return monitor values for url.
+      responses:
+        200:
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SuccessResponse"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+components:
+  headers:
+    X-Stats:
+      description: stats
+      schema:
+        type: object
+        example: {"url.com": 10, "nonexistent.com": null}
+  schemas:
+    SuccessResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+          example: 200
+        data:
+          type: object
+        messages:
+          type: array
+          items:
+            type: string
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+          example: 500
+        data:
+          type: object
+        errors:
+          type: array
+          items:
+            type: string
+
