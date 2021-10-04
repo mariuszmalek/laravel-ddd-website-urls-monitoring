@@ -33,11 +33,5 @@ class MonitorRepository implements MonitorRepositoryInterface
         return Website::where('url', $url)->whereHas('statistics', function ($query) use ($timeLimit) {
             return $query->where('created_at', '>',  now()->subMinutes($timeLimit));
         })->first();
-
-        // return $website->statistics()->where($website->stats()->createdAt(), '>', now()->subMinutes($timeLimit))->latest()->get([
-        //     'created_at as time',
-        //     'total_loading_time as loadingTime',
-        //     'redirects_count as redirectCount'
-        // ]);
     }
 }

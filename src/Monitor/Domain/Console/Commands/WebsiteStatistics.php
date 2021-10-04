@@ -5,6 +5,7 @@ namespace Monitor\Console\Commands;
 use App\Repositories\UrlRequestRepository;
 use Illuminate\Console\Command;
 use Monitor\Models\Website;
+use Monitor\Services\WebsiteMonitorService;
 use Monitor\Services\WebsiteStatisticService;
 
 class WebsiteStatistics extends Command
@@ -21,12 +22,15 @@ class WebsiteStatistics extends Command
      */
     protected $description = 'Gather information about every added url';
 
+    protected $websiteMonitorService;
+
     /**
+     * @param WebsiteMonitorService $websiteMonitorService
      */
-    public function __construct(WebsiteStatisticService $websiteStatisticService)
+    public function __construct(WebsiteMonitorService $websiteMonitorService)
     {
         parent::__construct();
-        $this->websiteStatisticService = $websiteStatisticService;
+        $this->websiteMonitorService = $websiteMonitorService;
     }
 
     /**
@@ -37,8 +41,11 @@ class WebsiteStatistics extends Command
     {
         $website = Website::all();
 
-        $statistic = $this->websiteStatisticService->connect($website->url);
-        $website->statistics()->create($statistic);
+        foreach($website as $item) {
+            $statistic = $this->websiteMonitorService->connect($item->url, 30, false, 10);
+            // TODO
+            $item->statistics()->create(null);
+        }
 
         return 0;
     }
