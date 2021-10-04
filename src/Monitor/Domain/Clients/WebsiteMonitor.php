@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Clients;
+namespace Monitor\Clients;
 
 use GuzzleHttp\Client;
 

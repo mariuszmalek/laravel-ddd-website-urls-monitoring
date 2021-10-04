@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace Monitor\Models;
 
 use App\Traits\Statusable;
 use Illuminate\Database\Eloquent\Model;

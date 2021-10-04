@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Services;
+namespace Monitor\Services;
 
-use App\Clients\WebsiteMonitor;
+use Monitor\Clients\WebsiteMonitor;
 
 class WebsiteMonitorService
 {

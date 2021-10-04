@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Repositories;
+namespace Monitor\Repositories;
 
-use App\Contracts\MonitorRepositoryInterface;
-use App\Models\Statistics;
-use App\Models\Website;
+use Monitor\Contracts\MonitorRepositoryInterface;
+use Monitor\Models\Statistics;
+use Monitor\Models\Website;
 use Illuminate\Contracts\Queue\Monitor;
 
 /**

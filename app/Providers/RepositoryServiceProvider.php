@@ -2,8 +2,8 @@
 
 namespace App\Providers;
 
-use App\Contracts\MonitorRepositoryInterface;
-use App\Repositories\MonitorRepository;
+use Monitor\Contracts\MonitorRepositoryInterface;
+use Monitor\Repositories\MonitorRepository;
 use Illuminate\Support\ServiceProvider;
 
 class RepositoryServiceProvider extends ServiceProvider

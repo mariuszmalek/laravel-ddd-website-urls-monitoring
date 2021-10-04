@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Jobs;
+namespace Monitor\Jobs;
 
 use App\Services\WebsiteUrlService;
 use Illuminate\Bus\Queueable;

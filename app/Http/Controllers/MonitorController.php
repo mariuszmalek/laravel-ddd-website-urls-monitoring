@@ -6,9 +6,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreMonitorRequest;
 use App\Http\Resources\StatisticsResource;
-use App\Contracts\MonitorRepositoryInterface;
-use App\Jobs\ProcessWebsiteUrlBulk;
-use App\Services\{
+use Monitor\Contracts\MonitorRepositoryInterface;
+use Monitor\Jobs\ProcessWebsiteUrlBulk;
+use Monitor\Services\{
     WebsiteUrlService,
     WebsiteStatisticService
 };
