@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Contracts;
+namespace Monitor\Contracts;
 
-use App\Models\Statistics;
-use App\Models\Website;
+use Monitor\Models\Statistics;
+use Monitor\Models\Website;
 
 /**
  * Interface MonitorRepositoryInterface

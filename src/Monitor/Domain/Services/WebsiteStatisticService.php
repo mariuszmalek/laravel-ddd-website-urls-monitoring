@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Services;
+namespace Monitor\Services;
 
-use App\Clients\WebsiteMonitor;
-use App\Contracts\MonitorRepositoryInterface;
-use App\Models\Website;
+use Monitor\Clients\WebsiteMonitor;
+use Monitor\Contracts\MonitorRepositoryInterface;
+use Monitor\Models\Website;
 
 class WebsiteStatisticService
 {
