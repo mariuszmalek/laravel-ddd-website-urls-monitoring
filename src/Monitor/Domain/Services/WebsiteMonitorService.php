@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Monitor\Services;
 
 use GuzzleHttp\Client;
+use GuzzleHttp\TransferStats;
 
 class WebsiteMonitorService
 {
@@ -12,6 +13,8 @@ class WebsiteMonitorService
      * @var Client
      */
     protected $client;
+
+    private $totaltime = 0;
     
     public function __construct(Client $client)
     {
@@ -31,7 +34,20 @@ class WebsiteMonitorService
         return $this->client->getAsync($url, [
             'timeout' => $timeout,
             'http_errors' => $httpErrors,
-            'allow_redirects' => ['max' => $maxRedirects]
+            'allow_redirects' => ['max' => $maxRedirects],
+            'on_stats' => function (TransferStats $stats) {
+                $this->setTotaltime($stats->getTransferTime());
+            } 
         ]);
+    }
+
+    public function getTotaltime()
+    {
+        return $this->totaltime;
+    }
+    
+    public function setTotaltime($time)
+    {
+        $this->totaltime = $time;
     }
 }
