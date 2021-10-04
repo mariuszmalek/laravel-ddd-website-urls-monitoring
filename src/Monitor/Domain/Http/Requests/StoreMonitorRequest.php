@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests;
+namespace Monitor\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -20,8 +20,8 @@ class StoreMonitorRequest extends FormRequest
     public function rules()
     {
         return [
-            // 'urls' => 'required|array',
-            // 'stats' => 'boolean'
+            'urls' => 'required|array',
+            'stats' => 'boolean'
         ];
     }
 }

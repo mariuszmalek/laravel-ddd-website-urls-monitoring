@@ -15,24 +15,34 @@ class WebsiteUrlService
     protected $monitorRepository;
 
     /**
+     * @var WebsiteMonitorService
+     */
+    protected $websiteMonitorService;
+
+    /**
      * @param MonitorRepository $monitorRepository
      */
-    public function __construct(MonitorRepositoryInterface $monitorRepository)
+    public function __construct(MonitorRepositoryInterface $monitorRepository, WebsiteMonitorService $websiteMonitorService)
     {
         $this->monitorRepository = $monitorRepository;
+        $this->websiteMonitorService = $websiteMonitorService;
     }
     
     /**
      * @param array $urls
+     * @param bool $stats
      * @return array
      */
-    public function bulkSave(array $urls): array
+    public function bulkSave(array $urls, bool $stats = null): array
     {
-        $array = [];
+        $array = [
+            'collection' => [],
+            'stats' => $stats
+        ];
 
         foreach ($urls as $url) {
-            $model = $this->monitorRepository->create($url);
-            array_push($array, $model);
+            $model = $this->monitorRepository->create($url, $stats);
+            array_push($array['collection'], $model);
         }
 
         return $array;

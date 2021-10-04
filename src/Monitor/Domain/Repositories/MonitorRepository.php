@@ -23,11 +23,6 @@ class MonitorRepository implements MonitorRepositoryInterface
         return Website::firstOrCreate(['url' => $url]);
     }
 
-    public function createMany()
-    {
-        
-    }
-
     /**
      * @param string $url
      * @param int $timeLimit
