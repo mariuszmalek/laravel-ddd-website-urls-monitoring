@@ -4,28 +4,34 @@ declare(strict_types=1);
 
 namespace Monitor\Services;
 
-use Monitor\Clients\WebsiteMonitor;
+use GuzzleHttp\Client;
 
 class WebsiteMonitorService
 {
     /**
-     * @var WebsiteMonitor
+     * @var Client
      */
-    protected $websiteMonitor;
-
-    /**
-     * @param WebsiteMonitor
-     */
-    public function __construct(WebsiteMonitor $websiteMonitor)
+    protected $client;
+    
+    public function __construct(Client $client)
     {
-        $this->websiteMonitor = $websiteMonitor;    
+        $this->client = $client;
     }
 
     /**
      * @param string $url
+     * @param string $timeout
+     * @param string $httpErrors
+     * @param int $maxRedirects
+     * @param int $numberOfRedirects
+     * @return Client
      */
-    public function test($url)
+    public function connect($url, $timeout, $httpErrors, $maxRedirects, int $numberOfRedirects = 0)
     {
-        $this->WebsiteMonitor->connect($url);
+        return $this->client->getAsync($url, [
+            'timeout' => $timeout,
+            'http_errors' => $httpErrors,
+            'allow_redirects' => ['max' => $maxRedirects]
+        ]);
     }
 }

@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 namespace Monitor\Services;
 
-use Monitor\Clients\WebsiteMonitor;
 use Monitor\Contracts\MonitorRepositoryInterface;
-use Monitor\Models\Website;
 
 class WebsiteStatisticService
 {
@@ -14,19 +12,19 @@ class WebsiteStatisticService
      * @var object
      */
     protected $monitorRepository;
-
+    
     /**
-     * @var WebsiteMonitor
+     * @var WebsiteMonitorService
      */
-    protected $websiteMonitor;
+    protected $websiteMonitorService;
 
     /**
      * @param MonitorRepository $monitorRepository
      */
-    public function __construct(MonitorRepositoryInterface $monitorRepository, WebsiteMonitor $websiteMonitor)
+    public function __construct(MonitorRepositoryInterface $monitorRepository, WebsiteMonitorService $websiteMonitorService)
     {
         $this->monitorRepository = $monitorRepository;
-        $this->websiteMonitor = $websiteMonitor;
+        $this->websiteMonitorService = $websiteMonitorService;
     }
 
     /**
@@ -34,7 +32,6 @@ class WebsiteStatisticService
      */
     public function bulkStats(bool $stats = false)
     {
-        $this->websiteMonitor;
         return $stats;
     }
 

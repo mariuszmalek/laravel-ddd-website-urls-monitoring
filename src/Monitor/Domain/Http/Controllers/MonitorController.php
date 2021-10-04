@@ -2,12 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Controllers;
+namespace Monitor\Http\Controllers;
 
-use App\Http\Requests\StoreMonitorRequest;
-use App\Http\Resources\StatisticsResource;
+use Monitor\Http\Requests\StoreMonitorRequest;
+use Monitor\Http\Resources\StatisticsResource;
 use Monitor\Contracts\MonitorRepositoryInterface;
-use Monitor\Jobs\ProcessWebsiteUrlBulk;
 use Monitor\Services\{
     WebsiteUrlService,
     WebsiteStatisticService
@@ -45,15 +44,9 @@ class MonitorController extends Controller
     public function store(StoreMonitorRequest $storeMonitorRequest)
     {
         // ProcessWebsiteUrlBulk::dispatch($storeMonitorRequest->urls, $this->websiteUrlService);
-        $this->websiteUrlService->bulkSave($storeMonitorRequest->urls);
+        $array = $this->websiteUrlService->bulkSave($storeMonitorRequest->urls, $storeMonitorRequest->stats);
 
-        if($storeMonitorRequest->stats) {
-            $urlsArray = $this->websiteStatisticService->bulkStats($storeMonitorRequest->stats);
-
-            $stats = $storeMonitorRequest->stats;
-        
-            return response($urlsArray)->header('X-Stats', $stats);
-        }
+        return response($array['collection'])->header('X-Stats', $array['stats']);
     }
     
     /**
@@ -63,7 +56,6 @@ class MonitorController extends Controller
     public function show(string $url)
     {
         $statistics = $this->monitorRepository->get($url);
-        return $statistics;
         return StatisticsResource::collection($statistics);
     }
 }
