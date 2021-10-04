@@ -35,7 +35,7 @@
     "autoload": {
         "psr-4": {
             "App\\": "app/",
-            "Monitor\\": "src/"
+            "Monitor\\": "src/Monitor/Domain/"
         },
         "classmap": [
             "database/seeds",
