@@ -51,9 +51,9 @@ class MonitorController extends Controller
     
     /**
      * @param string $url
-     * @return Statistics
+     * @return object
      */
-    public function show(string $url)
+    public function show(string $url): object
     {
         $statistics = $this->monitorRepository->get($url);
         return StatisticsResource::collection($statistics);
